@@ -1,5 +1,6 @@
 import sys
 
+# Read the input from a file or return an empty list
 def read_input(filename=None):
     split_lines = []
     if filename:
@@ -11,6 +12,7 @@ def read_input(filename=None):
     else:
         return []
 
+# Get a list of invalid IDs where the ID consists of two identical halves
 def get_list_of_invalid_ids(ranges):
     invalid_ids = []
     for r in ranges:
@@ -24,7 +26,10 @@ def get_list_of_invalid_ids(ranges):
                     invalid_ids.append(i)
     return invalid_ids
 
-
+# Though we could do a quick determination that we don't exceed half the length of the string,
+# we could optimize the search further by creating a set of possible denominators to check against.
+# For example, a 9-character string can only be divided by 1 or 3 to create repeated segments and a
+# 12-character string can be divided by 1, 2, 3, 4, or 6.
 def get_full_partial_lengths(string_value):
     partial_lengths = []
     max_partial_length = len(string_value) // 2
@@ -34,6 +39,7 @@ def get_full_partial_lengths(string_value):
             partial_lengths.append(mpl)
     return partial_lengths
 
+# Get a list of invalid IDs where the ID consists of repeated segments of any length
 def get_extra_list_of_invalid_ids(ranges):
     extra_invalid_ids = []
     for r in ranges:
@@ -50,10 +56,12 @@ def get_extra_list_of_invalid_ids(ranges):
                    break
     return extra_invalid_ids
 
-
+# Sum the invalid IDs
 def sum_of_invalid_ids(invalid_ids):
     return sum(invalid_ids)
 
+
+# Main execution
 if __name__ == "__main__":
     input_file = sys.argv[1] if len(sys.argv) > 1 else None
     lines = read_input(input_file)
